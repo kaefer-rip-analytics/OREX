@@ -3,7 +3,7 @@ import type { Usuario } from '../types/usuario'
 import type { UpdateUserRequest,  CreateUserRequest } from '../types/usuarioRequest'
 
 const api = axios.create({
-  baseURL: 'https://fitting-venues-colored-larry.trycloudflare.com/api',
+  baseURL: 'https://url-gen-delegation-logic.trycloudflare.com/api',
 })
 
 export interface UsuarioFilters {

@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>OrexApp</RootNamespace>
+    <UserSecretsId>1d62bc87-ab1b-4c84-a6af-60aa921c9d0c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# files uncessary for production
+**/bin/
+**/obj/
+**/Properties/launchSettings.json
+**/appsettings.json
+**/appsettings.Development.json
