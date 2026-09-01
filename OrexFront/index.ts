@@ -1,0 +1,1 @@
+export { ManterUsuarioPage } from '../OrexFront/ManterUsuario/pages/ManterUsuarioPage'

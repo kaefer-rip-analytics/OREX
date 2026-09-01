@@ -1,0 +1,6 @@
+@orex_app_HostAddress = http://localhost:5121
+
+GET {{orex_app_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

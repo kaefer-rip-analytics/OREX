@@ -1,0 +1,9 @@
+export interface Usuario {
+  id: number
+  nome: string
+  email: string
+  perfil: string
+  ativo: boolean
+  dtCadastro: string
+  dtAtualizacao?: string | null
+}
