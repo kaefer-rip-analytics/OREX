@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { inativarUsuario } from '../services/ManterUsuarioService'
+import { deactivatedUsers } from '../services/ManterUsuarioService'
 
-export function useInativarUsuarios() {
+export function useDeactivatedUser() {
   const [carregando, setCarregando] = useState(false)
 
   async function executar(id: number) {
     try {
       setCarregando(true)
 
-      await inativarUsuario(id)
+      await deactivatedUsers(id)
     } finally {
       setCarregando(false)
     }

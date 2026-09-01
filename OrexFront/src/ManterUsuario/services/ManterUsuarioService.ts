@@ -1,9 +1,9 @@
 import axios from 'axios'
 import type { Usuario } from '../types/usuario'
-import type { AtualizarUsuarioRequest,  CriarUsuarioRequest } from '../types/usuarioRequest'
+import type { UpdateUserRequest,  CreateUserRequest } from '../types/usuarioRequest'
 
 const api = axios.create({
-  baseURL: 'https://subtle-intl-tion-definitions.trycloudflare.com/api',
+  baseURL: 'https://fitting-venues-colored-larry.trycloudflare.com/api',
 })
 
 export interface UsuarioFilters {
@@ -13,7 +13,7 @@ export interface UsuarioFilters {
   ativo?: boolean | ''
 }
 
-export async function listarUsuarios(
+export async function listUsers(
   filtros: UsuarioFilters = {},
 ): Promise<Usuario[]> {
   const response = await api.get<Usuario[]>('/Usuario', {
@@ -23,17 +23,17 @@ export async function listarUsuarios(
   return response.data
 }
 
-export async function criarUsuario(
-  request: CriarUsuarioRequest,
+export async function createUsers(
+  request: CreateUserRequest,
 ): Promise<Usuario> {
   const response = await api.post<Usuario>('/Usuario', request)
 
   return response.data
 }
 
-export async function atualizarUsuario(
+export async function updateUsers(
   id: number,
-  request: AtualizarUsuarioRequest,
+  request: UpdateUserRequest,
 ): Promise<Usuario> {
   const response = await api.put<Usuario>(
     `/Usuario/${id}`,
@@ -43,6 +43,6 @@ export async function atualizarUsuario(
   return response.data
 }
 
-export async function inativarUsuario(id: number): Promise<void> {
+export async function deactivatedUsers(id: number): Promise<void> {
   await api.delete(`/Usuario/${id}`)
 }

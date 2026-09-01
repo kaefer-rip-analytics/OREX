@@ -1,4 +1,4 @@
-import { ManterUsuarioPage } from '../OrexFront/ManterUsuario/pages/ManterUsuarioPage'
+import { ManterUsuarioPage } from './src/ManterUsuario/pages/ManterUsuarioPage'
 
 function App() {
   return <ManterUsuarioPage />

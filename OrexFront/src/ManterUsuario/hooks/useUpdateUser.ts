@@ -1,18 +1,18 @@
 import { useState } from 'react'
-import { atualizarUsuario } from '../services/ManterUsuarioService'
-import type { AtualizarUsuarioRequest } from '../types/usuarioRequest'
+import { updateUsers } from '../services/ManterUsuarioService'
+import type { UpdateUserRequest } from '../types/usuarioRequest'
 
-export function useAtualizarUsuarios() {
+export function useUpdateUser() {
   const [carregando, setCarregando] = useState(false)
 
   async function executar(
     id: number,
-    request: AtualizarUsuarioRequest,
+    request: UpdateUserRequest,
   ) {
     try {
       setCarregando(true)
 
-      return await atualizarUsuario(id, request)
+      return await updateUsers(id, request)
     } finally {
       setCarregando(false)
     }

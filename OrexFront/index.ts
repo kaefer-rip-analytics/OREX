@@ -1,1 +1,1 @@
-export { ManterUsuarioPage } from '../OrexFront/ManterUsuario/pages/ManterUsuarioPage'
+export { ManterUsuarioPage } from './src/ManterUsuario/pages/ManterUsuarioPage'

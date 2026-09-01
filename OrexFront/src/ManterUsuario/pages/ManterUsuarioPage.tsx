@@ -2,10 +2,10 @@ import { useMemo, useState } from 'react'
 import { UsuarioFilters } from '../components/UsuarioFiltos'
 import { UsuarioForm } from '../components/UsuarioForm'
 import { UsuarioTable } from '../components/UsuarioTabela'
-import { useAtualizarUsuarios } from '../hooks/useAtualizarUsuarios'
-import { useCriarUsuarios } from '../hooks/useCriarUsuarios'
-import { useInativarUsuarios } from '../hooks/useInativarUsuarios'
-import { useUsuarios } from '../hooks/useUsuarios'
+import { useUpdateUser } from '../hooks/useUpdateUser'
+import { useCreateUser } from '../hooks/useCreateUser'
+import { useDeactivatedUser } from '../hooks/useDeactivatedUser'
+import { useUser } from '../hooks/useUser'
 import type { UsuarioFilters as Filtros } from '../services/ManterUsuarioService'
 import type { Usuario } from '../types/usuario'
 import type { UsuarioFormData } from '../schemas/usuarioSchema'
@@ -34,16 +34,16 @@ export function ManterUsuarioPage() {
     carregando,
     erro,
     recarregar,
-  } = useUsuarios(filtrosMemoizados)
+  } = useUser(filtrosMemoizados)
 
   const { criar, carregando: criando } =
-    useCriarUsuarios()
+    useCreateUser()
 
   const { atualizar, carregando: atualizando } =
-    useAtualizarUsuarios()
+    useUpdateUser()
 
   const { inativar } =
-    useInativarUsuarios()
+    useDeactivatedUser()
 
   async function salvar(dados: UsuarioFormData) {
     console.log('Dados enviados:', dados)
