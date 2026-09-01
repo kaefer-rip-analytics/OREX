@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("orex-app")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+457e63be29334dc4da6d5ab0c93920972e14d552")]
 [assembly: System.Reflection.AssemblyProductAttribute("orex-app")]
 [assembly: System.Reflection.AssemblyTitleAttribute("orex-app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

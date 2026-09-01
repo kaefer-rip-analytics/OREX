@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using OrexApp.ManterUsuario.Models;
+using OrexApp.ManterUsuario.Features.Usuario;
 
-namespace OrexApp.Banco
+namespace OrexApp.Infra.Banco
 {
     public class ApplicationDbContext : DbContext
     {
@@ -10,13 +10,13 @@ namespace OrexApp.Banco
             
         }
 
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Usuario>(entity =>
+            modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.ToTable("Usuarios");
 

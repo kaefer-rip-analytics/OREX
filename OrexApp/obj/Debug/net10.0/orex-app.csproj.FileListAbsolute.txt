@@ -174,3 +174,4 @@
 /home/flausinothi/OREX/OrexApp/obj/Debug/net10.0/orex-app.pdb
 /home/flausinothi/OREX/OrexApp/obj/Debug/net10.0/orex-app.genruntimeconfig.cache
 /home/flausinothi/OREX/OrexApp/obj/Debug/net10.0/ref/orex-app.dll
+/home/flausinothi/OREX/OrexApp/obj/Debug/net10.0/orex-app.sourcelink.json

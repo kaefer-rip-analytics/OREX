@@ -1,19 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 
-using OrexApp.ManterUsuario.DTOs.Request;
-using OrexApp.ManterUsuario.DTOs.Response;
-using OrexApp.ManterUsuario.Interfaces;
+using OrexApp.ManterUsuario.Features.AtualizarUsuarioRequest;
+using OrexApp.ManterUsuario.Features.CriarUsuarioRequest;
+using OrexApp.ManterUsuario.Features.UsuarioResponse;
+using OrexApp.ManterUsuario.Features.IUsuarioService;
 
-namespace OrexApp.ManterUsuario.Controllers
+namespace OrexApp.ManterUsuario.Features.UsuarioController
 {
     [ApiController]
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService _usuarioService;
+        private readonly IUsuariosService _usuarioService;
         private readonly ILogger<UsuarioController> _logger;
 
-        public UsuarioController(IUsuarioService usuarioService, ILogger<UsuarioController> logger)
+        public UsuarioController(IUsuariosService usuarioService, ILogger<UsuarioController> logger)
         {
             _usuarioService = usuarioService;
             _logger = logger;
@@ -23,11 +24,11 @@ namespace OrexApp.ManterUsuario.Controllers
         /// Recuperar todos os usuários
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<List<UsuarioResponse>>> GetAll()
+        public async Task<ActionResult<List<UsuariosResponse>>> GetAll()
         {
             try
             {
-                var usuarios = await _usuarioService.ObterTodosAsync();
+                var usuarios = await _usuarioService.GetAll();
                 return Ok(usuarios);
             }
             catch (Exception e)
@@ -41,11 +42,11 @@ namespace OrexApp.ManterUsuario.Controllers
         /// Recuperar usuário por Id
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsuarioResponse>> GetById(int id)
+        public async Task<ActionResult<UsuariosResponse>> GetById(int id)
         {
             try
             {
-                var usuario = await _usuarioService.ObterPorIdAsync(id);
+                var usuario = await _usuarioService.GetById(id);
                 return Ok(usuario);
             }
             catch (KeyNotFoundException e)
@@ -63,14 +64,14 @@ namespace OrexApp.ManterUsuario.Controllers
         /// Criar usuário com objeto
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<UsuarioResponse>> Create([FromBody] CriarUsuarioRequest dto)
+        public async Task<ActionResult<UsuariosResponse>> Create([FromBody] CriarUsuariosRequest dto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var usuario = await _usuarioService.CriarAsync(dto);
+                var usuario = await _usuarioService.CreateAsync(dto);
                 return CreatedAtAction(nameof(GetById), new { id = usuario.Id }, usuario);
             }
             catch (InvalidOperationException e)
@@ -88,11 +89,11 @@ namespace OrexApp.ManterUsuario.Controllers
         /// Atualizar usuário com objeto
         /// </summary>
         [HttpPut("{id}")]
-        public async Task<ActionResult<UsuarioResponse>> Update(int id, [FromBody] AtualizarUsuarioRequest dto)
+        public async Task<ActionResult<UsuariosResponse>> Update(int id, [FromBody] AtualizarUsuariosRequest dto)
         {
             try
             {
-                var usuario = await _usuarioService.AtualizarAsync(id, dto);
+                var usuario = await _usuarioService.UpdateAsync(id, dto);
                 return Ok(usuario);
             }
             catch (Exception e)
@@ -110,7 +111,7 @@ namespace OrexApp.ManterUsuario.Controllers
         {
             try
             {
-                await _usuarioService.InativarAsync(id);
+                await _usuarioService.DeactivatedAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException e)

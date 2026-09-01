@@ -1,6 +1,6 @@
-namespace OrexApp.ManterUsuario.Models
+namespace OrexApp.ManterUsuario.Features.Usuario
 {
-    public class Usuario
+    public class Usuarios
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -10,10 +10,10 @@ namespace OrexApp.ManterUsuario.Models
         public DateTime DtCadastro { get; set; }
         public DateTime? DtAtualizacao { get; set; }
 
-        public Usuario()
+        public Usuarios()
         {
         }
-        public Usuario (string nome, string email, string perfil, bool ativo)
+        public Usuarios (string nome, string email, string perfil, bool ativo)
         {
             Nome = nome;
             Email = email;

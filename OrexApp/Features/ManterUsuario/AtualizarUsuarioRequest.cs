@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OrexApp.ManterUsuario.DTOs.Request
+namespace OrexApp.ManterUsuario.Features.AtualizarUsuarioRequest
 {
-    public record AtualizarUsuarioRequest(
+    public record AtualizarUsuariosRequest(
         [Required]
         [StringLength(100)]
         string Nome,

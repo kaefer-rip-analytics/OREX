@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using OrexApp.Banco;
-using OrexApp.ManterUsuario.Interfaces;
-using OrexApp.ManterUsuario.Repository;
-using OrexApp.ManterUsuario.Services;
+using OrexApp.Infra.Banco;
+
+using OrexApp.ManterUsuario.Features.IUsuarioRepository;
+using OrexApp.ManterUsuario.Features.IUsuarioService;
+using OrexApp.ManterUsuario.Features.UsuarioRepository;
+using OrexApp.ManterUsuario.Features.UsuarioService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .EnableDetailedErrors());
 
 // Injeção de Dependência
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IUsuariosRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuariosService, UsuarioService>();
 
 // Controllers
 builder.Services.AddControllers();
