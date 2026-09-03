@@ -3,7 +3,7 @@ import type { Usuario } from '../types/usuario'
 import type { UpdateUserRequest,  CreateUserRequest } from '../types/usuarioRequest'
 
 const api = axios.create({
-  baseURL: 'https://url-gen-delegation-logic.trycloudflare.com/api',
+  baseURL: import.meta.env.VITE_API_URL,
 })
 
 export interface UsuarioFilters {

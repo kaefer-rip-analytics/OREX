@@ -46,7 +46,6 @@ export function ManterUsuarioPage() {
     useDeactivatedUser()
 
   async function salvar(dados: UsuarioFormData) {
-    console.log('Dados enviados:', dados)
     
     if (usuarioSelecionado) {
       await atualizar(usuarioSelecionado.id, dados)

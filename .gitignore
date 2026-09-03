@@ -1,0 +1,75 @@
+# =========================================================
+# .NET / ASP.NET Core
+# =========================================================
+
+# Arquivos gerados pelo build
+**/bin/
+**/obj/
+
+# Visual Studio, VS Code e outras IDEs
+.vs/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Arquivos locais do Visual Studio/.NET
+*.user
+*.suo
+*.userosscache
+*.sln
+*.sln.docstates
+*.ntvs*
+*.njsproj
+*.sw?
+
+# Configurações locais de execução
+**/Properties/launchSettings.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =========================================================
+# Configurações e segredos
+# =========================================================
+
+# Arquivos locais de configuração
+.env
+.env.*
+.env.example
+
+# Configurações locais do ASP.NET Core
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.local.json
+
+# =========================================================
+# React / Vite / Node.js
+# =========================================================
+
+# Dependências
+**/node_modules/
+
+# Build do Vite
+**/dist/
+
+# Cache
+**/.vite/
+**/.eslintcache
+**/.tsbuildinfo
+
+# Cobertura de testes
+**/coverage/
+
+# =========================================================
+# Sistema operacional
+# =========================================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
