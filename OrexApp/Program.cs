@@ -27,14 +27,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // CORS
+var allowedOrigins =
+    builder.Configuration
+        .GetSection("Cors:AllowedOrigins")
+        .Get<string[]>() ?? [];
+
+var cloudflareOrigin = "https://washing-seeker-tracks-gem.trycloudflare.com";
+
+var origins = allowedOrigins
+    .Append(cloudflareOrigin)
+    .ToArray();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEnd", policy =>
     {
-        policy.WithOrigins(
-            "http://localhost:5173",
-            "http://127.0.0.1:5173",
-            "https://url-gen-delegation-logic.trycloudflare.com")
+        policy.WithOrigins(origins)
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
