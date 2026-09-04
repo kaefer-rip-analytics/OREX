@@ -1,2 +1,5 @@
 <Solution>
+  <Folder Name="/OrexApp/">
+    <Project Path="/home/flausinothi/OREX/OrexApp/orex-app.csproj" />
+  </Folder>
 </Solution>
