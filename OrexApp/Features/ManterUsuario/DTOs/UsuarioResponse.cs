@@ -1,6 +1,6 @@
-using OrexApp.ManterUsuario.Features.Usuario;
+using OrexApp.Features.ManterUsuario.Usuario;
 
-namespace OrexApp.ManterUsuario.Features.UsuarioResponse
+namespace OrexApp.Features.ManterUsuario.DTOs.UsuarioResponse
 {
     public record UsuariosResponse(
         int Id, 

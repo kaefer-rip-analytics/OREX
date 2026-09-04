@@ -1,11 +1,11 @@
-using OrexApp.ManterUsuario.Features.AtualizarUsuarioRequest;
-using OrexApp.ManterUsuario.Features.CriarUsuarioRequest;
-using OrexApp.ManterUsuario.Features.UsuarioResponse;
-using OrexApp.ManterUsuario.Features.Usuario;
-using OrexApp.ManterUsuario.Features.IUsuarioRepository;
-using OrexApp.ManterUsuario.Features.IUsuarioService;
+using OrexApp.Features.ManterUsuario.DTOs.AtualizarUsuarioRequest;
+using OrexApp.Features.ManterUsuario.DTOs.CriarUsuarioRequest;
+using OrexApp.Features.ManterUsuario.DTOs.UsuarioResponse;
+using OrexApp.Features.ManterUsuario.Usuario;
+using OrexApp.Features.ManterUsuario.IUsuarioRepository;
+using OrexApp.Features.ManterUsuario.IUsuarioService;
 
-namespace OrexApp.ManterUsuario.Features.UsuarioService
+namespace OrexApp.Features.ManterUsuario.UsuarioService
 {
     public class UsuarioService : IUsuariosService
     {

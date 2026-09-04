@@ -1,4 +1,4 @@
-namespace OrexApp.ManterUsuario.Features.Usuario
+namespace OrexApp.Features.ManterUsuario.Usuario
 {
     public class Usuarios
     {

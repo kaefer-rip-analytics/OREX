@@ -1,6 +1,6 @@
-using OrexApp.ManterUsuario.Features.Usuario;
+using OrexApp.Features.ManterUsuario.Usuario;
 
-namespace OrexApp.ManterUsuario.Features.IUsuarioRepository
+namespace OrexApp.Features.ManterUsuario.IUsuarioRepository
 {
     public interface IUsuariosRepository
     {

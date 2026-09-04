@@ -1,8 +1,8 @@
-using OrexApp.ManterUsuario.Features.AtualizarUsuarioRequest;
-using OrexApp.ManterUsuario.Features.CriarUsuarioRequest;
-using OrexApp.ManterUsuario.Features.UsuarioResponse;
+using OrexApp.Features.ManterUsuario.DTOs.AtualizarUsuarioRequest;
+using OrexApp.Features.ManterUsuario.DTOs.CriarUsuarioRequest;
+using OrexApp.Features.ManterUsuario.DTOs.UsuarioResponse;
 
-namespace OrexApp.ManterUsuario.Features.IUsuarioService
+namespace OrexApp.Features.ManterUsuario.IUsuarioService
 {
     public interface IUsuariosService
     {

@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using OrexApp.Infra.Banco;
 
-using OrexApp.ManterUsuario.Features.IUsuarioRepository;
-using OrexApp.ManterUsuario.Features.IUsuarioService;
-using OrexApp.ManterUsuario.Features.UsuarioRepository;
-using OrexApp.ManterUsuario.Features.UsuarioService;
+using OrexApp.Features.ManterUsuario.IUsuarioRepository;
+using OrexApp.Features.ManterUsuario.IUsuarioService;
+using OrexApp.Features.ManterUsuario.UsuarioRepository;
+using OrexApp.Features.ManterUsuario.UsuarioService;
+
+using OrexApp.Features.ManterProduto.IProdutoRepository;
+using OrexApp.Features.ManterProduto.IProdutoService;
+using OrexApp.Features.ManterProduto.ProdutoRepository;
+using OrexApp.Features.ManterProduto.ProdutoService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +24,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUsuariosRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuariosService, UsuarioService>();
 
+builder.Services.AddScoped<IProdutosRepository, ProdutoRepository>();
+builder.Services.AddScoped<IProdutosService, ProdutoService>();
+
 // Controllers
 builder.Services.AddControllers();
 
@@ -32,7 +40,7 @@ var allowedOrigins =
         .GetSection("Cors:AllowedOrigins")
         .Get<string[]>() ?? [];
 
-var cloudflareOrigin = "https://washing-seeker-tracks-gem.trycloudflare.com";
+var cloudflareOrigin = "https://bean-wiring-fine-principles.trycloudflare.com";
 
 var origins = allowedOrigins
     .Append(cloudflareOrigin)

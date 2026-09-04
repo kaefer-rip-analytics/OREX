@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 
 using OrexApp.Infra.Banco;
-using OrexApp.ManterUsuario.Features.Usuario;
-using OrexApp.ManterUsuario.Features.IUsuarioRepository;
+using OrexApp.Features.ManterUsuario.Usuario;
+using OrexApp.Features.ManterUsuario.IUsuarioRepository;
 
-namespace OrexApp.ManterUsuario.Features.UsuarioRepository
+namespace OrexApp.Features.ManterUsuario.UsuarioRepository
 {
     public class UsuarioRepository : IUsuariosRepository
     {

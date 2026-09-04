@@ -1,35 +1,35 @@
 using Microsoft.AspNetCore.Mvc;
 
-using OrexApp.Features.ManterUsuario.DTOs.AtualizarUsuarioRequest;
-using OrexApp.Features.ManterUsuario.DTOs.CriarUsuarioRequest;
-using OrexApp.Features.ManterUsuario.DTOs.UsuarioResponse;
-using OrexApp.Features.ManterUsuario.IUsuarioService;
+using OrexApp.Features.ManterProduto.DTOs.AtualizarProdutoRequest;
+using OrexApp.Features.ManterProduto.DTOs.CriarProdutoRequest;
+using OrexApp.Features.ManterProduto.DTOs.ProdutoResponse;
+using OrexApp.Features.ManterProduto.IProdutoService;
 
-namespace OrexApp.Features.ManterUsuario.UsuarioController
+namespace OrexApp.Features.ManterProduto.ProdutoController
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsuarioController : ControllerBase
+    public class ProdutoController : ControllerBase
     {
-        private readonly IUsuariosService _usuarioService;
-        private readonly ILogger<UsuarioController> _logger;
+        private readonly IProdutosService _produtoService;
+        private readonly ILogger<ProdutoController> _logger;
 
-        public UsuarioController(IUsuariosService usuarioService, ILogger<UsuarioController> logger)
+        public ProdutoController(IProdutosService produtoService, ILogger<ProdutoController> logger)
         {
-            _usuarioService = usuarioService;
+            _produtoService = produtoService;
             _logger = logger;
         }
 
         /// <summary>
-        /// Recuperar todos os usuários
+        /// Recuperar todos os produtos
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<List<UsuariosResponse>>> GetAll()
+        public async Task<ActionResult<List<ProdutosResponse>>> GetAll()
         {
             try
             {
-                var usuarios = await _usuarioService.GetAll();
-                return Ok(usuarios);
+                var produtos = await _produtoService.GetAll();
+                return Ok(produtos);
             }
             catch (Exception e)
             {
@@ -42,12 +42,12 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         /// Recuperar usuário por Id
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsuariosResponse>> GetById(int id)
+        public async Task<ActionResult<ProdutosResponse>> GetById(int id)
         {
             try
             {
-                var usuario = await _usuarioService.GetById(id);
-                return Ok(usuario);
+                var produto = await _produtoService.GetById(id);
+                return Ok(produto);
             }
             catch (KeyNotFoundException e)
             {
@@ -64,15 +64,15 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         /// Criar usuário com objeto
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<UsuariosResponse>> Create([FromBody] CriarUsuariosRequest dto)
+        public async Task<ActionResult<ProdutosResponse>> Create([FromBody] CriarProdutosRequest dto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var usuario = await _usuarioService.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = usuario.Id }, usuario);
+                var produto = await _produtoService.CreateAsync(dto);
+                return CreatedAtAction(nameof(GetById), new { id = produto.Id }, produto);
             }
             catch (InvalidOperationException e)
             {
@@ -89,12 +89,12 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         /// Atualizar usuário com objeto
         /// </summary>
         [HttpPut("{id}")]
-        public async Task<ActionResult<UsuariosResponse>> Update(int id, [FromBody] AtualizarUsuariosRequest dto)
+        public async Task<ActionResult<ProdutosResponse>> Update(int id, [FromBody] AtualizarProdutosRequest dto)
         {
             try
             {
-                var usuario = await _usuarioService.UpdateAsync(id, dto);
-                return Ok(usuario);
+                var produto = await _produtoService.UpdateAsync(id, dto);
+                return Ok(produto);
             }
             catch (Exception e)
             {
@@ -111,7 +111,7 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         {
             try
             {
-                await _usuarioService.DeactivatedAsync(id);
+                await _produtoService.DeactivatedAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException e)

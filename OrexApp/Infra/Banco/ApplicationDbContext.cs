@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using OrexApp.ManterUsuario.Features.Usuario;
+using OrexApp.Features.ManterUsuario.Usuario;
+using OrexApp.Features.ManterProduto.Produto;
 
 namespace OrexApp.Infra.Banco
 {
@@ -11,6 +12,7 @@ namespace OrexApp.Infra.Banco
         }
 
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Produtos> Produtos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,31 +22,52 @@ namespace OrexApp.Infra.Banco
             {
                 entity.ToTable("Usuarios");
 
-                entity.HasKey(e => e.Id);
+                entity.HasKey(u => u.Id);
 
-                entity.Property(e => e.Nome)
+                entity.Property(u => u.Nome)
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.Email)
+                entity.Property(u => u.Email)
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasIndex(e => e.Email)
+                entity.HasIndex(u => u.Email)
                     .IsUnique();
 
-                entity.Property(e => e.Perfil)
+                entity.Property(u => u.Perfil)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Ativo)
+                entity.Property(u => u.Ativo)
                     .IsRequired()
                     .HasDefaultValue(true);
 
-                entity.Property(e => e.DtCadastro)
+                entity.Property(u => u.DtCadastro)
                     .HasDefaultValueSql("GETUTCDATE()");
 
                 entity.Property(e => e.DtAtualizacao)
+                    .IsRequired(false);
+            });
+
+            modelBuilder.Entity<Produtos>(entity =>
+            {
+                entity.ToTable("Produtos");
+
+                entity.HasKey(p => p.Id);
+
+                entity.Property(p => p.Descricao)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(p => p.Ativo)
+                    .IsRequired()
+                    .HasDefaultValue(true);
+
+                entity.Property(p => p.DtCadastro)
+                    .HasDefaultValueSql("GETUTCDATE()");
+
+                entity.Property(p => p.DtAtualizacao)
                     .IsRequired(false);
             });
         }
