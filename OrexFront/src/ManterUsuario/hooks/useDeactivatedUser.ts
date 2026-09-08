@@ -4,7 +4,7 @@ import { deactivatedUsers } from '../services/ManterUsuarioService'
 export function useDeactivatedUser() {
   const [carregando, setCarregando] = useState(false)
 
-  async function executar(id: number) {
+  async function executar(id: string) {
     try {
       setCarregando(true)
 

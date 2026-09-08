@@ -31,6 +31,11 @@ public class ApplicationDbContext : IdentityDbContext<Usuarios>
                 .IsRequired()
                 .HasMaxLength(100);
 
+            entity.Property(usuario => usuario.Perfil)
+                .HasConversion<string>()
+                .HasMaxLength(50)
+                .IsRequired();
+
             entity.Property(usuario => usuario.Email)
                 .IsRequired()
                 .HasMaxLength(100);

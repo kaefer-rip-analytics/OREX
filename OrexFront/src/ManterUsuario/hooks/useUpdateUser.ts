@@ -6,7 +6,7 @@ export function useUpdateUser() {
   const [carregando, setCarregando] = useState(false)
 
   async function executar(
-    id: number,
+    id: string,
     request: UpdateUserRequest,
   ) {
     try {

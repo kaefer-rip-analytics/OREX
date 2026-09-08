@@ -1,6 +1,8 @@
 using System.Text;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using OpenTelemetry.Trace;
 
 using OrexApp.Infra.Banco;
 
+using OrexApp.Features.ManterUsuario.Usuario;
 using OrexApp.Features.ManterUsuario.IUsuarioRepository;
 using OrexApp.Features.ManterUsuario.IUsuarioService;
 using OrexApp.Features.ManterUsuario.UsuarioRepository;
@@ -32,8 +35,17 @@ var builder = WebApplication.CreateBuilder(args);
 // =====================================================
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("ConnectionStrings:DefaultConnection não foi configurada.");
+}
 
 var jwtKey = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrWhiteSpace(jwtKey))
+{
+    throw new InvalidOperationException("Jwt:Key não foi configurada.");
+}
+
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "OrexApp";
 var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "OrexFront";
 
@@ -69,6 +81,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         options.UseSqlServer(connectionString);
     });
 
+builder.Services
+    .AddIdentityCore<Usuarios>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddSignInManager()
+    .AddDefaultTokenProviders();
+
 // =====================================================
 // CORS
 // =====================================================
@@ -79,8 +98,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(origins)
                 .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
+                .AllowAnyMethod();
     });
 });
 
@@ -138,6 +156,16 @@ builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
+    options.AddFixedWindowLimiter(
+    "Login",
+    limiterOptions =>
+    {
+        limiterOptions.PermitLimit = 5;
+        limiterOptions.Window =
+            TimeSpan.FromMinutes(1);
+        limiterOptions.QueueLimit = 0;
+    });
+
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
         {
             var key = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
@@ -174,14 +202,18 @@ var openTelemetryBuilder = builder.Services.AddOpenTelemetry().ConfigureResource
         })
         .WithTracing(tracing =>
         {
-            tracing
-                .AddAspNetCoreInstrumentation();
+            tracing.AddAspNetCoreInstrumentation();
+            if (!string.IsNullOrWhiteSpace(otlpEndpoint))
+            {
+                tracing.AddOtlpExporter(options =>
+                {
+                    options.Endpoint = new Uri(otlpEndpoint);
+                });
+            }
         })
         .WithMetrics(metrics =>
         {
-            metrics
-                .AddAspNetCoreInstrumentation()
-                .AddRuntimeInstrumentation();
+            metrics.AddAspNetCoreInstrumentation().AddRuntimeInstrumentation();
         });
 
 // =====================================================
@@ -197,8 +229,6 @@ builder.Services.AddScoped<IProdutosService, ProdutoService>();
 // =====================================================
 // Controllers e Swagger
 // =====================================================
-
-builder.Services.AddControllers();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

@@ -32,7 +32,7 @@ export async function createUsers(
 }
 
 export async function updateUsers(
-  id: number,
+  id: string,
   request: UpdateUserRequest,
 ): Promise<Usuario> {
   const response = await api.put<Usuario>(
@@ -43,6 +43,6 @@ export async function updateUsers(
   return response.data
 }
 
-export async function deactivatedUsers(id: number): Promise<void> {
+export async function deactivatedUsers(id: string): Promise<void> {
   await api.delete(`/Usuario/${id}`)
 }
