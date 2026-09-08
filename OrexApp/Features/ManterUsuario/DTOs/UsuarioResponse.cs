@@ -6,7 +6,7 @@ public record UsuariosResponse(
     string Id, 
     string Nome, 
     string Email, 
-    UsuarioPerfil? Perfil, 
+    UsuarioPerfil Perfil, 
     bool Ativo,
     DateTime? DtCadastro,
     DateTime? DtAtualizacao

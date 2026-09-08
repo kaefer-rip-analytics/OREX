@@ -13,7 +13,7 @@ namespace OrexApp.Features.ManterUsuario.DTOs.AtualizarUsuarioRequest
 
         [Required]
         [StringLength(50)]
-        UsuarioPerfil? Perfil,
+        UsuarioPerfil Perfil,
 
         bool Ativo
     );

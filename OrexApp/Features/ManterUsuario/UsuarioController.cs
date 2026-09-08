@@ -9,6 +9,7 @@ using OrexApp.Features.ManterUsuario.IUsuarioService;
 namespace OrexApp.Features.ManterUsuario.UsuarioController
 {
     [Authorize]
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase

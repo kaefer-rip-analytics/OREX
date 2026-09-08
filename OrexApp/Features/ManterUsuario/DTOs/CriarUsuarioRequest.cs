@@ -12,8 +12,11 @@ namespace OrexApp.Features.ManterUsuario.DTOs.CriarUsuarioRequest
         string Email,
 
         [Required]
-        [StringLength(50)]
-        UsuarioPerfil? Perfil,
+        UsuarioPerfil Perfil,
+
+        [Required]
+        [MinLength(6)]
+        string Password,
 
         bool Ativo
     );

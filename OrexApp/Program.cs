@@ -15,9 +15,7 @@ using OpenTelemetry.Trace;
 using OrexApp.Infra.Banco;
 
 using OrexApp.Features.ManterUsuario.Usuario;
-using OrexApp.Features.ManterUsuario.IUsuarioRepository;
 using OrexApp.Features.ManterUsuario.IUsuarioService;
-using OrexApp.Features.ManterUsuario.UsuarioRepository;
 using OrexApp.Features.ManterUsuario.UsuarioService;
 
 using OrexApp.Features.ManterProduto.IProdutoRepository;
@@ -54,7 +52,7 @@ var allowedOrigins =
         .GetSection("Cors:AllowedOrigins")
         .Get<string[]>() ?? [];
 
-var cloudflareOrigin = "https://bean-wiring-fine-principles.trycloudflare.com";
+var cloudflareOrigin = "https://florence-cheapest-train-deliver.trycloudflare.com";
 
 var origins = allowedOrigins
     .Append(cloudflareOrigin)
@@ -220,7 +218,6 @@ var openTelemetryBuilder = builder.Services.AddOpenTelemetry().ConfigureResource
 // Injeção de dependências
 // =====================================================
 
-builder.Services.AddScoped<IUsuariosRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuariosService, UsuarioService>();
 
 builder.Services.AddScoped<IProdutosRepository, ProdutoRepository>();
