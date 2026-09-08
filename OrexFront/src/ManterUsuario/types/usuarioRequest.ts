@@ -3,6 +3,7 @@ export interface CreateUserRequest {
   email: string
   perfil: string
   ativo: boolean
+  password: string
 }
 
 export interface UpdateUserRequest {

@@ -13,6 +13,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 using OrexApp.Infra.Banco;
+using OrexApp.Infra.Identity;
 
 using OrexApp.Features.ManterUsuario.Usuario;
 using OrexApp.Features.ManterUsuario.IUsuarioService;
@@ -238,6 +239,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+await IdentitySeed.SeedAsync(app.Services);
 
 // =====================================================
 // Pipeline HTTP

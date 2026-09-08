@@ -12,6 +12,7 @@ namespace OrexApp.Features.ManterUsuario.DTOs.CriarUsuarioRequest
         string Email,
 
         [Required]
+        [EnumDataType(typeof(UsuarioPerfil))]
         UsuarioPerfil Perfil,
 
         [Required]

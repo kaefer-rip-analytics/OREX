@@ -12,7 +12,7 @@ namespace OrexApp.Features.ManterUsuario.DTOs.AtualizarUsuarioRequest
         string Email,
 
         [Required]
-        [StringLength(50)]
+        [EnumDataType(typeof(UsuarioPerfil))]
         UsuarioPerfil Perfil,
 
         bool Ativo

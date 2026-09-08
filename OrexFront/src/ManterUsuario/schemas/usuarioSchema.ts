@@ -15,6 +15,10 @@ export const usuarioSchema = z.object({
     .min(1, 'Selecione um perfil'),
 
   ativo: z.boolean(),
+
+  password: z
+    .string()
+    .min(6, 'A senha deve possuir pelo menos 6 caracteres')
 })
 
 export type UsuarioFormData = z.infer<typeof usuarioSchema>

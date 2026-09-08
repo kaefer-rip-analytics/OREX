@@ -44,6 +44,7 @@ namespace OrexApp.Features.ManterUsuario.UsuarioService
             var usuario = new Usuarios
             {
                 UserName = request.Nome,
+                Nome = request.Nome,
                 Email = request.Email,
                 Perfil = request.Perfil,
                 Ativo = request.Ativo,

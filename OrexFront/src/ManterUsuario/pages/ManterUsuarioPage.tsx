@@ -15,7 +15,7 @@ export function ManterUsuarioPage() {
     nome: '',
     email: '',
     perfil: '',
-    ativo: '',
+    ativo: ''
   })
 
   const [usuarioSelecionado, setUsuarioSelecionado] =

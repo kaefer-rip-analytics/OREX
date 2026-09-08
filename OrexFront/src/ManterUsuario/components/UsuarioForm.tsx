@@ -31,6 +31,7 @@ export function UsuarioForm({
       email: '',
       perfil: '',
       ativo: true,
+      password: ''
     },
   })
 
@@ -40,6 +41,7 @@ export function UsuarioForm({
       email: usuario?.email ?? '',
       perfil: usuario?.perfil ?? '',
       ativo: usuario?.ativo ?? true,
+      password: '',
     })
   }, [usuario, reset])
 
@@ -138,6 +140,24 @@ export function UsuarioForm({
         {errors.ativo && (
           <p className="mt-1 text-sm text-red-600">
             {errors.ativo.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label className="mb-1 block font-medium">
+          Senha
+        </label>
+
+        <input
+          type="password"
+          {...register('password')}
+          className="w-full rounded border px-3 py-2"
+        />
+
+        {errors.password && (
+          <p className="mt-1 text-sm text-red-600">
+            {errors.password.message}
           </p>
         )}
       </div>
