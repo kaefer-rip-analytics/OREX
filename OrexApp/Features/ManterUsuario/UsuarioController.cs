@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using OrexApp.Features.ManterUsuario.DTOs.AtualizarUsuarioRequest;
@@ -7,6 +8,7 @@ using OrexApp.Features.ManterUsuario.IUsuarioService;
 
 namespace OrexApp.Features.ManterUsuario.UsuarioController
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
@@ -39,10 +41,10 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         }
 
         /// <summary>
-        /// Recuperar usuário por Id
+        /// Somente ADM pode visualizar usuário por Id
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsuariosResponse>> GetById(int id)
+        public async Task<ActionResult<UsuariosResponse>> GetById(string id)
         {
             try
             {
@@ -61,7 +63,7 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         }
 
         /// <summary>
-        /// Criar usuário com objeto
+        /// Somente ADM pode criar usuário com objeto
         /// </summary>
         [HttpPost]
         public async Task<ActionResult<UsuariosResponse>> Create([FromBody] CriarUsuariosRequest dto)
@@ -86,10 +88,10 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         }
 
         /// <summary>
-        /// Atualizar usuário com objeto
+        /// Somente ADM pode atualizar usuário com objeto
         /// </summary>
         [HttpPut("{id}")]
-        public async Task<ActionResult<UsuariosResponse>> Update(int id, [FromBody] AtualizarUsuariosRequest dto)
+        public async Task<ActionResult<UsuariosResponse>> Update(string id, [FromBody] AtualizarUsuariosRequest dto)
         {
             try
             {
@@ -104,10 +106,10 @@ namespace OrexApp.Features.ManterUsuario.UsuarioController
         }
 
         /// <summary>
-        /// Exclui um usuário por Id
+        /// Somente ADM pode visualizar exclui um usuário por Id
         /// </summary>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Inativar(int id)
+        public async Task<ActionResult> Inativar(string id)
         {
             try
             {

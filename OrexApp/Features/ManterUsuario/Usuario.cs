@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace OrexApp.Features.ManterUsuario.Usuario
 {
-    public class Usuarios
+    public class Usuarios : IdentityUser
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
-        public string Email { get; set; }
-        public string Perfil { get; set; }
+        public UsuarioPerfil? Perfil { get; set; }
         public bool Ativo { get; set; }
         public DateTime DtCadastro { get; set; }
         public DateTime? DtAtualizacao { get; set; }
@@ -13,11 +13,9 @@ namespace OrexApp.Features.ManterUsuario.Usuario
         public Usuarios()
         {
         }
-        public Usuarios (string nome, string email, string perfil, bool ativo)
+        public Usuarios (string nome, bool ativo)
         {
             Nome = nome;
-            Email = email;
-            Perfil = perfil;
             Ativo = ativo;
             DtCadastro = DateTime.UtcNow;
         }

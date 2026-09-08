@@ -7,9 +7,9 @@ namespace OrexApp.Features.ManterUsuario.IUsuarioService
     public interface IUsuariosService
     {
         Task<List<UsuariosResponse>> GetAll();
-        Task<UsuariosResponse?> GetById(int id);
+        Task<UsuariosResponse?> GetById(string id);
         Task<UsuariosResponse> CreateAsync(CriarUsuariosRequest request);
-        Task<UsuariosResponse?> UpdateAsync(int id, AtualizarUsuariosRequest request);
-        Task<bool> DeactivatedAsync(int id);
+        Task<UsuariosResponse?> UpdateAsync(string id, AtualizarUsuariosRequest request);
+        Task<bool> DeactivatedAsync(string id);
     }
 }

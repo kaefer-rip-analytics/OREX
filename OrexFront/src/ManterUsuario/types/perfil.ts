@@ -1,7 +1,10 @@
-export type Perfil = 'Administrador' | 'Gestor' | 'Usuário'
+export type Perfil = 'Administrador' | 'Aprovador' | 'Operacao' | 'Orcamentista' | 'Usuario_Integracao' | 'Conta_Servico'
 
 export const perfis: Perfil[] = [
   'Administrador',
-  'Gestor',
-  'Usuário',
+  'Aprovador',
+  'Operacao',
+  'Orcamentista',
+  'Usuario_Integracao',
+  'Conta_Servico',
 ]

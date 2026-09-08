@@ -1,75 +1,91 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 using OrexApp.Features.ManterUsuario.Usuario;
 using OrexApp.Features.ManterProduto.Produto;
 
-namespace OrexApp.Infra.Banco
+namespace OrexApp.Infra.Banco;
+
+public class ApplicationDbContext : IdentityDbContext<Usuarios>
 {
-    public class ApplicationDbContext : DbContext
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        
+    }
+
+    public DbSet<Usuarios> Usuarios { get; set; }
+    public DbSet<Produtos> Produtos { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Usuarios>(entity =>
         {
-            
-        }
+            entity.ToTable("Usuarios");
 
-        public DbSet<Usuarios> Usuarios { get; set; }
-        public DbSet<Produtos> Produtos { get; set; }
+            entity.HasKey(usuario => usuario.Id);
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+            entity.Property(usuario => usuario.Nome)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(usuario => usuario.Email)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.HasIndex(usuario => usuario.Email)
+                .IsUnique();
+
+            entity.Property(usuario => usuario.Ativo)
+                .IsRequired()
+                .HasDefaultValue(true);
+
+            entity.Property(usuario => usuario.DtCadastro)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            entity.Property(usuario => usuario.DtAtualizacao)
+                .IsRequired(false);
+        });
+
+        modelBuilder.Entity<IdentityRole>()
+            .ToTable("Roles");
+
+        modelBuilder.Entity<IdentityUserRole<string>>()
+            .ToTable("UserRoles");
+
+        modelBuilder.Entity<IdentityUserClaim<string>>()
+            .ToTable("UserClaims");
+
+        modelBuilder.Entity<IdentityUserLogin<string>>()
+            .ToTable("UserLogins");
+
+        modelBuilder.Entity<IdentityRoleClaim<string>>()
+            .ToTable("RoleClaims");
+
+        modelBuilder.Entity<IdentityUserToken<string>>()
+            .ToTable("UserTokens");
+
+        modelBuilder.Entity<Produtos>(entity =>
         {
-            base.OnModelCreating(modelBuilder);
+            entity.ToTable("Produtos");
 
-            modelBuilder.Entity<Usuarios>(entity =>
-            {
-                entity.ToTable("Usuarios");
+            entity.HasKey(produto => produto.Id);
 
-                entity.HasKey(u => u.Id);
+            entity.Property(produto => produto.Descricao)
+                .IsRequired()
+                .HasMaxLength(100);
 
-                entity.Property(u => u.Nome)
-                    .IsRequired()
-                    .HasMaxLength(100);
+            entity.Property(produto => produto.Ativo)
+                .IsRequired()
+                .HasDefaultValue(true);
 
-                entity.Property(u => u.Email)
-                    .IsRequired()
-                    .HasMaxLength(100);
+            entity.Property(produto => produto.DtCadastro)
+                .HasDefaultValueSql("GETUTCDATE()");
 
-                entity.HasIndex(u => u.Email)
-                    .IsUnique();
-
-                entity.Property(u => u.Perfil)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(u => u.Ativo)
-                    .IsRequired()
-                    .HasDefaultValue(true);
-
-                entity.Property(u => u.DtCadastro)
-                    .HasDefaultValueSql("GETUTCDATE()");
-
-                entity.Property(e => e.DtAtualizacao)
-                    .IsRequired(false);
-            });
-
-            modelBuilder.Entity<Produtos>(entity =>
-            {
-                entity.ToTable("Produtos");
-
-                entity.HasKey(p => p.Id);
-
-                entity.Property(p => p.Descricao)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(p => p.Ativo)
-                    .IsRequired()
-                    .HasDefaultValue(true);
-
-                entity.Property(p => p.DtCadastro)
-                    .HasDefaultValueSql("GETUTCDATE()");
-
-                entity.Property(p => p.DtAtualizacao)
-                    .IsRequired(false);
-            });
-        }
+            entity.Property(produto => produto.DtAtualizacao)
+                .IsRequired(false);
+        });
     }
 }

@@ -22,7 +22,7 @@ namespace OrexApp.Features.ManterUsuario.UsuarioService
             return usuarios.Select(UsuariosResponse.From).ToList();
         }
 
-        public async Task<UsuariosResponse?> GetById(int id)
+        public async Task<UsuariosResponse?> GetById(string id)
         {
             var usuario = await _usuarioRepository.GetById(id);
 
@@ -41,14 +41,14 @@ namespace OrexApp.Features.ManterUsuario.UsuarioService
                 throw new InvalidOperationException("CPF já cadastrado no sistema");
             */
 
-            var usuario = new Usuarios(request.Nome, request.Email, request.Perfil, request.Ativo);
+            var usuario = new Usuarios(request.Nome, request.Ativo);
             
             await _usuarioRepository.CreateAsync(usuario);
 
             return UsuariosResponse.From(usuario);
         }
 
-        public async Task<UsuariosResponse?> UpdateAsync(int id, AtualizarUsuariosRequest request)
+        public async Task<UsuariosResponse?> UpdateAsync(string id, AtualizarUsuariosRequest request)
         {
             var usuario = await _usuarioRepository.GetById(id);
             if (usuario == null)
@@ -67,8 +67,6 @@ namespace OrexApp.Features.ManterUsuario.UsuarioService
             */
 
             usuario.Nome = request.Nome;
-            usuario.Email = request.Email;
-            usuario.Perfil = request.Perfil;
             usuario.Ativo = request.Ativo;
             usuario.DtAtualizacao = DateTime.UtcNow;
 
@@ -77,7 +75,7 @@ namespace OrexApp.Features.ManterUsuario.UsuarioService
             return UsuariosResponse.From(usuario);
         }
 
-        public async Task<bool> DeactivatedAsync(int id)
+        public async Task<bool> DeactivatedAsync(string id)
         {
             var usuario = await _usuarioRepository.GetById(id);
             

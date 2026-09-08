@@ -22,7 +22,7 @@ namespace OrexApp.Features.ManterUsuario.UsuarioRepository
                 .ToListAsync();
         }
 
-        public async Task<Usuarios?> GetById(int id)
+        public async Task<Usuarios?> GetById(string id)
         {
             
             return await _context.Usuarios
