@@ -35,11 +35,10 @@ public class AuthController : ControllerBase
     [AllowAnonymous]
     [EnableRateLimiting("Login")]
     [HttpPost("login")]
-    public async Task<ActionResult<LoginResponse>> Login(
+    public async Task<ActionResult> Login(
         [FromBody] LoginRequest request)
     {
-        var usuario =
-            await _userManager.FindByEmailAsync(request.Email);
+        var usuario = await _userManager.FindByEmailAsync(request.Email);
 
         if (usuario is null || !usuario.Ativo)
         {
@@ -49,11 +48,7 @@ public class AuthController : ControllerBase
             });
         }
 
-        var resultado =
-            await _signInManager.CheckPasswordSignInAsync(
-                usuario,
-                request.Password,
-                lockoutOnFailure: true);
+        var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, request.Password, lockoutOnFailure: true);
 
         if (!resultado.Succeeded)
         {
@@ -63,8 +58,7 @@ public class AuthController : ControllerBase
             });
         }
 
-        var roles =
-            await _userManager.GetRolesAsync(usuario);
+        var roles = await _userManager.GetRolesAsync(usuario);
 
         var token = CriarToken(usuario, roles);
 
@@ -76,47 +70,32 @@ public class AuthController : ControllerBase
             roles));
     }
 
-    private string CriarToken(
-        Usuarios usuario,
-        IList<string> roles)
+    private string CriarToken(Usuarios usuario, IList<string> roles)
     {
         var claims = new List<Claim>
         {
-            new(
-                JwtRegisteredClaimNames.Sub,
-                usuario.Id),
+            new(JwtRegisteredClaimNames.Sub, usuario.Id),
 
-            new(
-                JwtRegisteredClaimNames.Email,
-                usuario.Email ?? string.Empty),
+            new(JwtRegisteredClaimNames.Email, usuario.Email ?? string.Empty),
 
-            new(
-                ClaimTypes.Name,
-                usuario.UserName ?? usuario.Email ?? usuario.Id)
+            new(ClaimTypes.Name, usuario.UserName ?? usuario.Email ?? usuario.Id)
         };
 
         foreach (var role in roles)
         {
-            claims.Add(
-                new Claim(ClaimTypes.Role, role));
+            claims.Add(new Claim(ClaimTypes.Role, role));
         }
 
         var jwtKey = _configuration["Jwt:Key"];
 
         if (string.IsNullOrWhiteSpace(jwtKey))
         {
-            throw new InvalidOperationException(
-                "Jwt:Key não foi configurada.");
+            throw new InvalidOperationException("Jwt:Key não foi configurada.");
         }
 
-        var signingKey =
-            new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtKey));
+        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
-        var credentials =
-            new SigningCredentials(
-                signingKey,
-                SecurityAlgorithms.HmacSha256);
+        var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],
@@ -125,7 +104,6 @@ public class AuthController : ControllerBase
             expires: DateTime.UtcNow.AddHours(2),
             signingCredentials: credentials);
 
-        return new JwtSecurityTokenHandler()
-            .WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

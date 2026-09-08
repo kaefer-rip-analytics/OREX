@@ -254,12 +254,11 @@ app.UseCors("FrontEnd");
 
 app.UseRateLimiter();
 
-app.UseAuthentication();
-
-app.UseAuthorization();
-
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Health Check público
 app.MapHealthChecks("/health").AllowAnonymous();
