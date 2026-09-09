@@ -1,0 +1,24 @@
+import { z } from 'zod'
+
+export const userSchema = z.object({
+  nome: z
+    .string()
+    .min(3, 'Informe o nome completo')
+    .max(150, 'O nome deve possuir no máximo 150 caracteres'),
+
+  email: z
+    .string()
+    .email('Informe um e-mail válido'),
+
+  role: z
+    .string()
+    .min(1, 'Selecione um perfil'),
+
+  ativo: z.boolean(),
+
+  password: z
+    .string()
+    .min(6, 'A senha deve possuir pelo menos 6 caracteres')
+})
+
+export type UserFormData = z.infer<typeof userSchema>

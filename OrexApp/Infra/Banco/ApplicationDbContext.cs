@@ -2,55 +2,55 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-using OrexApp.Features.ManterUsuario.Usuario;
-using OrexApp.Features.ManterProduto.Produto;
+using OrexApp.Features.MantainUser.User;
+using OrexApp.Features.MantainProduct.Product;
 
 namespace OrexApp.Infra.Banco;
 
-public class ApplicationDbContext : IdentityDbContext<Usuarios>
+public class ApplicationDbContext : IdentityDbContext<Users>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
         
     }
 
-    public DbSet<Usuarios> Usuarios { get; set; }
-    public DbSet<Produtos> Produtos { get; set; }
+    public DbSet<Users> Users { get; set; }
+    public DbSet<Products> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Usuarios>(entity =>
+        modelBuilder.Entity<Users>(entity =>
         {
-            entity.ToTable("Usuarios");
+            entity.ToTable("Users");
 
-            entity.HasKey(usuario => usuario.Id);
+            entity.HasKey(user => user.Id);
 
-            entity.Property(usuario => usuario.Nome)
+            entity.Property(user => user.Nome)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            entity.Property(usuario => usuario.Perfil)
+            entity.Property(user => user.Roles)
                 .HasConversion<string>()
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entity.Property(usuario => usuario.Email)
+            entity.Property(user => user.Email)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            entity.HasIndex(usuario => usuario.Email)
+            entity.HasIndex(user => user.Email)
                 .IsUnique();
 
-            entity.Property(usuario => usuario.Ativo)
+            entity.Property(user => user.Ativo)
                 .IsRequired()
                 .HasDefaultValue(true);
 
-            entity.Property(usuario => usuario.DtCadastro)
+            entity.Property(user => user.DtCadastro)
                 .HasDefaultValueSql("GETUTCDATE()");
 
-            entity.Property(usuario => usuario.DtAtualizacao)
+            entity.Property(user => user.DtAtualizacao)
                 .IsRequired(false);
         });
 
@@ -72,24 +72,24 @@ public class ApplicationDbContext : IdentityDbContext<Usuarios>
         modelBuilder.Entity<IdentityUserToken<string>>()
             .ToTable("UserTokens");
 
-        modelBuilder.Entity<Produtos>(entity =>
+        modelBuilder.Entity<Products>(entity =>
         {
-            entity.ToTable("Produtos");
+            entity.ToTable("Products");
 
-            entity.HasKey(produto => produto.Id);
+            entity.HasKey(product => product.Id);
 
-            entity.Property(produto => produto.Descricao)
+            entity.Property(product => product.Descricao)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            entity.Property(produto => produto.Ativo)
+            entity.Property(product => product.Ativo)
                 .IsRequired()
                 .HasDefaultValue(true);
 
-            entity.Property(produto => produto.DtCadastro)
+            entity.Property(product => product.DtCadastro)
                 .HasDefaultValueSql("GETUTCDATE()");
 
-            entity.Property(produto => produto.DtAtualizacao)
+            entity.Property(product => product.DtAtualizacao)
                 .IsRequired(false);
         });
     }

@@ -1,1 +1,1 @@
-export { ManterUsuarioPage } from './src/ManterUsuario/pages/ManterUsuarioPage'
+export { MantainUserPage } from './src/MantainUser/pages/MantainUserPage'

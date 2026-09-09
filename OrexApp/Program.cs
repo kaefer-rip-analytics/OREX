@@ -15,14 +15,14 @@ using OpenTelemetry.Trace;
 using OrexApp.Infra.Banco;
 using OrexApp.Infra.Identity;
 
-using OrexApp.Features.ManterUsuario.Usuario;
-using OrexApp.Features.ManterUsuario.IUsuarioService;
-using OrexApp.Features.ManterUsuario.UsuarioService;
+using OrexApp.Features.MantainUser.User;
+using OrexApp.Features.MantainUser.IUserService;
+using OrexApp.Features.MantainUser.UserService;
 
-using OrexApp.Features.ManterProduto.IProdutoRepository;
-using OrexApp.Features.ManterProduto.IProdutoService;
-using OrexApp.Features.ManterProduto.ProdutoRepository;
-using OrexApp.Features.ManterProduto.ProdutoService;
+using OrexApp.Features.MantainProduct.IProductRepository;
+using OrexApp.Features.MantainProduct.IProductService;
+using OrexApp.Features.MantainProduct.ProductRepository;
+using OrexApp.Features.MantainProduct.ProductService;
 
 using Serilog;
 using System.Text.Json.Serialization;
@@ -81,7 +81,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     });
 
 builder.Services
-    .AddIdentityCore<Usuarios>()
+    .AddIdentityCore<Users>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
@@ -219,10 +219,10 @@ var openTelemetryBuilder = builder.Services.AddOpenTelemetry().ConfigureResource
 // Injeção de dependências
 // =====================================================
 
-builder.Services.AddScoped<IUsuariosService, UsuarioService>();
+builder.Services.AddScoped<IUsersService, UserService>();
 
-builder.Services.AddScoped<IProdutosRepository, ProdutoRepository>();
-builder.Services.AddScoped<IProdutosService, ProdutoService>();
+builder.Services.AddScoped<IProductsRepository, ProductRepository>();
+builder.Services.AddScoped<IProductsService, ProductService>();
 
 // =====================================================
 // Controllers e Swagger

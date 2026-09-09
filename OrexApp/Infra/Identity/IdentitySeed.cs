@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
-using OrexApp.Features.ManterUsuario;
-using OrexApp.Features.ManterUsuario.Usuario;
+using OrexApp.Features.MantainUser;
+using OrexApp.Features.MantainUser.User;
 
 namespace OrexApp.Infra.Identity;
 
@@ -10,15 +10,15 @@ public static class IdentitySeed
     {
         using var scope = services.CreateScope();
 
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Usuarios>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Users>>();
 
         var roleManager =scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
         var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-        foreach (var perfil in Enum.GetValues<UsuarioPerfil>())
+        foreach (var roles in Enum.GetValues<UserRoles>())
         {
-            var roleName = perfil.ToString();
+            var roleName = roles.ToString();
 
             if (!await roleManager.RoleExistsAsync(roleName))
             {
@@ -53,13 +53,13 @@ public static class IdentitySeed
             return;
         }
 
-        admin = new Usuarios
+        admin = new Users
         {
             UserName = email,
             Email = email,
             EmailConfirmed = true,
             Nome = "Administrador",
-            Perfil = UsuarioPerfil.Administrador,
+            Roles = UserRoles.Administrador,
             Ativo = true,
             DtCadastro = DateTime.UtcNow
         };
@@ -75,7 +75,7 @@ public static class IdentitySeed
                         error => error.Description)));
         }
 
-        var roleResultAdmin = await userManager.AddToRoleAsync(admin, UsuarioPerfil.Administrador.ToString());
+        var roleResultAdmin = await userManager.AddToRoleAsync(admin, UserRoles.Administrador.ToString());
 
         if (!roleResultAdmin.Succeeded)
         {

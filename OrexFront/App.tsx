@@ -1,7 +1,7 @@
-import { ManterUsuarioPage } from './src/ManterUsuario/pages/ManterUsuarioPage'
+import { MantainUserPage } from './src/MantainUser/pages/MantainUserPage'
 
 function App() {
-  return <ManterUsuarioPage />
+  return <MantainUserPage />
 }
 
 export default App
