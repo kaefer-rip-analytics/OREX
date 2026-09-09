@@ -12,7 +12,7 @@ using OrexApp.Infra.Banco;
 namespace OrexApp.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260908165219_AddIdentity")]
+    [Migration("20260909145242_AddIdentity")]
     partial class AddIdentity
     {
         /// <inheritdoc />
@@ -158,7 +158,7 @@ namespace OrexApp.Infra.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrexApp.Features.ManterProduto.Produto.Produtos", b =>
+            modelBuilder.Entity("OrexApp.Features.MantainProduct.Product.Products", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -186,10 +186,10 @@ namespace OrexApp.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produtos", (string)null);
+                    b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("OrexApp.Features.ManterUsuario.Usuario.Usuarios", b =>
+            modelBuilder.Entity("OrexApp.Features.MantainUser.User.Users", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -244,16 +244,16 @@ namespace OrexApp.Infra.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Perfil")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -278,7 +278,7 @@ namespace OrexApp.Infra.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -292,7 +292,7 @@ namespace OrexApp.Infra.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("OrexApp.Features.ManterUsuario.Usuario.Usuarios", null)
+                    b.HasOne("OrexApp.Features.MantainUser.User.Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -301,7 +301,7 @@ namespace OrexApp.Infra.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("OrexApp.Features.ManterUsuario.Usuario.Usuarios", null)
+                    b.HasOne("OrexApp.Features.MantainUser.User.Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -316,7 +316,7 @@ namespace OrexApp.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OrexApp.Features.ManterUsuario.Usuario.Usuarios", null)
+                    b.HasOne("OrexApp.Features.MantainUser.User.Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -325,7 +325,7 @@ namespace OrexApp.Infra.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("OrexApp.Features.ManterUsuario.Usuario.Usuarios", null)
+                    b.HasOne("OrexApp.Features.MantainUser.User.Users", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

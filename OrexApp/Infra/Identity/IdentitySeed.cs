@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using OrexApp.Features.MantainUser;
+using OrexApp.Features.MantainUser.Roles;
 using OrexApp.Features.MantainUser.User;
 
 namespace OrexApp.Infra.Identity;
