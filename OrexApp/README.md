@@ -1,7 +1,7 @@
 ### Setting the connection string to secret manager
 ```bash
 $bd_pw = "[BD PASSWORD HERE]"
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=10.221.2.102,14004;Database=OREX_TESTE;User Id=usrorex;Password=$db_pw;TrustServerCertificate=True;Encrypt=False;"
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=[YOUR_SERVER];Database=[YOUR_DATABASE];User Id=[YOUR_ID];Password=$db_pw;TrustServerCertificate=True;Encrypt=False;"
 
 openssl rand -base64 64
 
