@@ -19,8 +19,7 @@ namespace OrexApp.Features.MantainUser.UserService
 
         public async Task<List<UsersResponse>> GetAll()
         {
-            var users = await _userManager.Users
-                .ToListAsync();
+            var users = await _userManager.Users.ToListAsync();
 
             var response = new List<UsersResponse>();
 
@@ -46,17 +45,14 @@ namespace OrexApp.Features.MantainUser.UserService
         {
             var user = new Users
             {
-                UserName = request.Nome,
-                Nome = request.Nome,
+                UserName = request.Email,
                 Email = request.Email,
+                Nome = request.Nome.Trim(),
                 Ativo = request.Ativo,
                 DtCadastro = DateTime.UtcNow
             };
-            
-            await _userManager.CreateAsync(user, request.Password);
-            await _userManager.AddToRoleAsync(user, request.Roles.ToString());
 
-            return UsersResponse.From(user, new[] {request.Roles.ToString()});
+            return UsersResponse.From(user, new List<string> { request.Roles.ToString() });
         }
 
         public async Task<UsersResponse?> UpdateAsync(string id, UpdateUsersRequest request)

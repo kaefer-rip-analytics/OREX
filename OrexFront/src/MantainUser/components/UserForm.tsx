@@ -39,7 +39,7 @@ export function UserForm({
     reset({
       nome: user?.nome ?? '',
       email: user?.email ?? '',
-      role: user?.role ?? '',
+      role: user?.roles?.[0] ?? '',
       ativo: user?.ativo ?? true,
       password: '',
     })
@@ -91,7 +91,7 @@ export function UserForm({
 
       <div>
         <label className="mb-1 block font-medium">
-          Role
+          Perfil
         </label>
 
         <select

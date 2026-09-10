@@ -32,7 +32,7 @@ export function UserTable({
             >
               <td className="px-4 py-3">{user.nome}</td>
               <td className="px-4 py-3">{user.email}</td>
-              <td className="px-4 py-3">{user.role}</td>
+              <td className="px-4 py-3">{user.roles}</td>
               <td className="px-4 py-3">
                 <span
                   className={
