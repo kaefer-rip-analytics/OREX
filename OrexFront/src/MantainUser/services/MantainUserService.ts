@@ -1,10 +1,6 @@
-import axios from 'axios'
+import { api } from '../../services/api'
 import type { User } from '../types/user'
 import type { UpdateUserRequest,  CreateUserRequest } from '../types/userRequest'
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-})
 
 export interface UserFilters {
   nome?: string

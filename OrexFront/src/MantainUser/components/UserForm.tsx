@@ -91,7 +91,7 @@ export function UserForm({
 
       <div>
         <label className="mb-1 block font-medium">
-          role
+          Role
         </label>
 
         <select
