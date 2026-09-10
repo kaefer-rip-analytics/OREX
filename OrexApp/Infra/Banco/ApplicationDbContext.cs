@@ -25,23 +25,9 @@ public class ApplicationDbContext : IdentityDbContext<Users>
         {
             entity.ToTable("Users");
 
-            entity.HasKey(user => user.Id);
-
             entity.Property(user => user.Nome)
                 .IsRequired()
                 .HasMaxLength(100);
-
-            entity.Property(user => user.Roles)
-                .HasConversion<string>()
-                .HasMaxLength(50)
-                .IsRequired();
-
-            entity.Property(user => user.Email)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            entity.HasIndex(user => user.Email)
-                .IsUnique();
 
             entity.Property(user => user.Ativo)
                 .IsRequired()

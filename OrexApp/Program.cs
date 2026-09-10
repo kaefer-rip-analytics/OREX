@@ -53,7 +53,7 @@ var allowedOrigins =
         .GetSection("Cors:AllowedOrigins")
         .Get<string[]>() ?? [];
 
-var cloudflareOrigin = "https://teaches-enhancing-covers-island.trycloudflare.com";
+var cloudflareOrigin = "https://exercise-des-linking-solutions.trycloudflare.com";
 
 var origins = allowedOrigins
     .Append(cloudflareOrigin)

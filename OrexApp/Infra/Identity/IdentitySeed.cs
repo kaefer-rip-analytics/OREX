@@ -18,19 +18,15 @@ public static class IdentitySeed
 
         foreach (var roles in Enum.GetValues<UserRoles>())
         {
-            var roleName = roles.ToString();
-
-            if (!await roleManager.RoleExistsAsync(roleName))
+            if (!await roleManager.RoleExistsAsync(roles.ToString()))
             {
-                var roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                var roleResult = await roleManager.CreateAsync(new IdentityRole(roles.ToString()));
 
                 if (!roleResult.Succeeded)
                 {
                     throw new InvalidOperationException(
-                        string.Join(
-                            "; ",
-                            roleResult.Errors.Select(
-                                error => error.Description)));
+                        string.Join("; ", roleResult.Errors.Select(error => error.Description)
+                        ));
                 }
             }
         }
@@ -59,7 +55,6 @@ public static class IdentitySeed
             Email = email,
             EmailConfirmed = true,
             Nome = "Administrador",
-            Roles = UserRoles.Administrador,
             Ativo = true,
             DtCadastro = DateTime.UtcNow
         };
@@ -69,10 +64,8 @@ public static class IdentitySeed
         if (!userResult.Succeeded)
         {
             throw new InvalidOperationException(
-                string.Join(
-                    "; ",
-                    userResult.Errors.Select(
-                        error => error.Description)));
+                string.Join("; ", userResult.Errors.Select(error => error.Description)
+                ));
         }
 
         var roleResultAdmin = await userManager.AddToRoleAsync(admin, UserRoles.Administrador.ToString());
@@ -80,10 +73,8 @@ public static class IdentitySeed
         if (!roleResultAdmin.Succeeded)
         {
             throw new InvalidOperationException(
-                string.Join(
-                    "; ",
-                    roleResultAdmin.Errors.Select(
-                        error => error.Description)));
+                string.Join("; ", roleResultAdmin.Errors.Select(error => error.Description)
+                ));
         }
     }
 }

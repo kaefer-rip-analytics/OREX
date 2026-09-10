@@ -20,23 +20,26 @@ namespace OrexApp.Features.MantainUser.UserService
         public async Task<List<UsersResponse>> GetAll()
         {
             var users = await _userManager.Users
-                .Select(user => new UsersResponse(
-                    user.Id,
-                    user.Nome,
-                    user.Email,
-                    user.Roles,
-                    user.Ativo,
-                    user.DtCadastro,
-                    user.DtAtualizacao)).ToListAsync();
+                .ToListAsync();
 
-            return users;
+            var response = new List<UsersResponse>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                response.Add(UsersResponse.From(user, roles));
+            }
+
+            return response;
         }
 
         public async Task<UsersResponse?> GetById(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            var roles = await _userManager.GetRolesAsync(user);
 
-            return UsersResponse.From(user);
+            return UsersResponse.From(user, roles);
         }
 
         public async Task<UsersResponse> CreateAsync(CreateUsersRequest request)
@@ -46,14 +49,14 @@ namespace OrexApp.Features.MantainUser.UserService
                 UserName = request.Nome,
                 Nome = request.Nome,
                 Email = request.Email,
-                Roles = request.Roles,
                 Ativo = request.Ativo,
                 DtCadastro = DateTime.UtcNow
             };
             
             await _userManager.CreateAsync(user, request.Password);
+            await _userManager.AddToRoleAsync(user, request.Roles.ToString());
 
-            return UsersResponse.From(user);
+            return UsersResponse.From(user, new[] {request.Roles.ToString()});
         }
 
         public async Task<UsersResponse?> UpdateAsync(string id, UpdateUsersRequest request)
@@ -68,9 +71,10 @@ namespace OrexApp.Features.MantainUser.UserService
             user.Ativo = request.Ativo;
             user.DtAtualizacao = DateTime.UtcNow;
 
+            var roles = await _userManager.GetRolesAsync(user);
             await _userManager.UpdateAsync(user);
 
-            return UsersResponse.From(user);
+            return UsersResponse.From(user, roles);
         }
 
         public async Task<bool> DeactivatedAsync(string id)

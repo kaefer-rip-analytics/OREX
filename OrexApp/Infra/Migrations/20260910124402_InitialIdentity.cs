@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OrexApp.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class AddIdentity : Migration
+    public partial class InitialIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,6 @@ namespace OrexApp.Infra.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Roles = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     DtCadastro = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     DtAtualizacao = table.Column<DateTime>(type: "datetime2", nullable: true),
